@@ -1,0 +1,145 @@
+function a()
+    NameHat = "Vegan Valkyrie" --[[Put DEX Hat Name]]
+
+---------------------------------------------------------------------------------------
+    --//Mesh and Texture//--
+    MeshID2 = "rbxassetid://1365696"
+    TextureID2 = "rbxassetid://1402325409"
+    --r6
+    PositionR6 = {-9.9773389550251e-09, 5.86, 0.195}
+    OrientationR6 = {14.770000457764, 0, 0}
+    --r15
+    PositionR15 = {-0.002, 7.177, 0.198}
+    OrientationR15 = {14.77, 0, 0}
+    --Cooldown Die
+    cooldown = 1
+    --//Script//--
+    local playerposition = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame.Position + Vector3.new(0,0,0)
+    Stop = true
+    spawn(function()
+        while wait() do
+            if Stop == true then
+                for i, track in pairs(game.Players.LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()) do
+                	track:Stop()
+                end
+            end
+        end
+    end)
+    local Controller = require(game.Players.LocalPlayer:WaitForChild("PlayerScripts"):WaitForChild("PlayerModule")):GetControls()
+    Controller:Disable()
+    local tweenInfo = TweenInfo.new(
+    	0
+    )
+    local t = game.TweenService:Create(game.Players.LocalPlayer.Character.PrimaryPart, tweenInfo, {CFrame = CFrame.new(
+    	0,5,0
+    )})
+    game.Players.LocalPlayer.Character.PrimaryPart.Anchored = true
+    t:Play()
+    wait(1)
+    if game.Players.LocalPlayer.Character[NameHat].Handle:FindFirstChildOfClass("SpecialMesh") then
+        local a,b = pcall(function()
+            repeat wait() until game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+            --//Sheesh//--
+            local Position1 = {x=0,y=0,z=0}
+            local Orientation1 = {x=0,y=0,z=0}
+            --//3d//--
+            for i,v in pairs(PositionR6) do
+                if i == 1 then
+                    Position1.x = v
+                end
+                if i == 2 then
+                    Position1.y = v
+                end
+                if i == 3 then
+                    Position1.z = v
+                end
+            end
+            for i,v in pairs(OrientationR6) do
+                if i == 1 then
+                    Orientation1.x = v
+                end
+                if i == 2 then
+                    Orientation1.y = v
+                end
+                if i == 3 then
+                    Orientation1.z = v
+                end
+            end
+            local plr = game.Players.LocalPlayer.Character
+            local hat = plr[NameHat].Handle
+            --//3d//--
+            hat.Position = Vector3.new(Position1.x,Position1.y,Position1.z)
+            hat.Orientation = Vector3.new(Orientation1.x,Orientation1.y,Orientation1.z)
+            --//api//--
+            hat.Mesh.MeshId = MeshID2
+            hat.Mesh.TextureId = TextureID2
+            --//trun everything back
+            Controller:Enable()
+            Stop = false
+            local tweenInfo1 = TweenInfo.new(
+            	0
+            )
+            local t1 = game.TweenService:Create(game.Players.LocalPlayer.Character.PrimaryPart, tweenInfo1, {CFrame = CFrame.new(
+            	playerposition
+            )})
+            t1:Play()
+            game.Players.LocalPlayer.Character.PrimaryPart.Anchored = false
+        end)
+        print(a,b)
+    else
+        local a,b = pcall(function()
+            repeat wait() until game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+            --//Sheesh//--
+            local Position1 = {x=0,y=0,z=0}
+            local Orientation1 = {x=0,y=0,z=0}
+            --//3d//--
+            for i,v in pairs(PositionR15) do
+                if i == 1 then
+                    Position1.x = v
+                end
+                if i == 2 then
+                    Position1.y = v
+                end
+                if i == 3 then
+                    Position1.z = v
+                end
+            end
+            for i,v in pairs(OrientationR15) do
+                if i == 1 then
+                    Orientation1.x = v
+                end
+                if i == 2 then
+                    Orientation1.y = v
+                end
+                if i == 3 then
+                    Orientation1.z = v
+                end
+            end
+            local plr = game.Players.LocalPlayer.Character
+            local hat = plr[NameHat].Handle
+            --//3d//--
+            hat.Position = Vector3.new(Position1.x,Position1.y,Position1.z)
+            hat.Orientation = Vector3.new(Orientation1.x,Orientation1.y,Orientation1.z)
+            --//api//--
+            hat.MeshId = MeshID2
+            hat.TextureID = TextureID2
+            --//trun everything back
+            Controller:Enable()
+            Stop = false
+            local tweenInfo1 = TweenInfo.new(
+            	0
+            )
+            local t1 = game.TweenService:Create(game.Players.LocalPlayer.Character.PrimaryPart, tweenInfo1, {CFrame = CFrame.new(
+            	playerposition
+            )})
+            t1:Play()
+            game.Players.LocalPlayer.Character.PrimaryPart.Anchored = false
+        end)
+        print(a,b)
+    end
+end
+a()
+game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Died:Connect(function()
+    wait(cooldown)
+    a()
+end)
